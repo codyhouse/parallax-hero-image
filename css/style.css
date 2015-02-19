@@ -38,7 +38,7 @@ Main Components
   content: 'mobile';
   display: none;
 }
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 1024px) {
   .cd-background-wrapper {
     position: relative;
     overflow: hidden;
@@ -66,7 +66,7 @@ Main Components
   top: 0;
   left: 0;
 }
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 1024px) {
   .cd-floating-background {
     top: 0;
     left: 0;
