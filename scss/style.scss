@@ -40,22 +40,22 @@ Main Components
 
 .cd-background-wrapper {
 	background-color: $color-3;
+	position: relative;
+	overflow: hidden;
+
+	.no-touch & {
+		@include perspective(4000px);
+	}
 
 	&::before {
-		/* never visible - this is used in jQuery to check the current MQ */
-		content: 'mobile';
+		/* never visible - this is used in jQuery to check the device type */
+		content: 'web';
 		display: none;
 	}
 
-	@include MQ(L) {
-		position: relative;
-		overflow: hidden;
-		@include perspective(4000px);
-
-		&::before {
-			/* never visible - this is used in jQuery to check the current MQ */
-			content: 'web';
-		}
+	.touch &::before {
+		/* never visible - this is used in jQuery to check the device type */
+		content: 'mobile';
 	}
 }
 
@@ -66,6 +66,8 @@ Main Components
 		display: block;
 		width: 100%;
 		@include backface-visibility(hidden);
+		/* fixes a Firefox bug - images not correctly rendered*/
+		background-color: rgba(#FFF, .01);
 	}
 
 	img:not(:first-child) {
@@ -74,7 +76,7 @@ Main Components
 		left: 0;
 	}
 
-	@include MQ(L) {
+	.no-touch & {
 		top: 0;
 		left: 0;
 		@include transform-style(preserve-3d);
@@ -82,11 +84,6 @@ Main Components
 
 		&.is-absolute {
 			position: absolute;
-		}
-	
-		.no-preserve-3d & {
-			/* we target browsers that don't support preserve-3d and show just a standard image - no effect visible */
-			position: relative;
 		}
 
 		img:first-child {
@@ -100,5 +97,10 @@ Main Components
 		img:nth-child(3) {
 			@include transform(translateZ(400px));
 		}
+	}
+
+	.no-touch.no-preserve-3d & {
+		/* we target browsers that don't support preserve-3d and show just a standard image - no effect visible */
+		position: relative;
 	}
 }
