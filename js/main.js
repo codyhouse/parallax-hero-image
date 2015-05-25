@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
 	//check media query
-	var mediaQuery = window.getComputedStyle(document.querySelector('.cd-background-wrapper'), '::before').getPropertyValue('content').replace(/"/g, ''),
+	var mediaQuery = window.getComputedStyle(document.querySelector('.cd-background-wrapper'), '::before').getPropertyValue('content').replace(/"/g, '').replace(/'/g, ""),
 		//define store some initial variables
 		halfWindowH = $(window).height()*0.5,
 		halfWindowW = $(window).width()*0.5,
@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
 
 	//on resize - adjust .cd-background-wrapper and .cd-floating-background dimentions and position
 	$(window).on('resize', function(){
-		mediaQuery = window.getComputedStyle(document.querySelector('.cd-background-wrapper'), '::before').getPropertyValue('content').replace(/"/g, '');
+		mediaQuery = window.getComputedStyle(document.querySelector('.cd-background-wrapper'), '::before').getPropertyValue('content').replace(/"/g, '').replace(/'/g, "");
 		if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) {
 			window.requestAnimationFrame(function(){
 				halfWindowH = $(window).height()*0.5,
