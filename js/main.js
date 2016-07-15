@@ -19,13 +19,24 @@ jQuery(document).ready(function($){
 	});
 	
 	//detect mouse movement
-	$('.cd-background-wrapper').on('mousemove', function(event){
-		if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) {
-			window.requestAnimationFrame(function(){
-				moveBackground(event);
-			});
-		}
+	$('.cd-background-wrapper').each(function(){
+		$(this).on('mousemove', function(event){
+			var wrapperOffsetTop = $(this).offset().top;
+			if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) {
+				window.requestAnimationFrame(function(){
+					moveBackground(event, wrapperOffsetTop);
+				});
+			}
+		});
 	});
+	// $('.cd-background-wrapper').on('mousemove', function(event){
+	// 	var wrapperOffsetTop = $(this).offset().top;
+	// 	if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) {
+	// 		window.requestAnimationFrame(function(){
+	// 			moveBackground(event, wrapperOffsetTop);
+	// 		});
+	// 	}
+	// });
 
 	//on resize - adjust .cd-background-wrapper and .cd-floating-background dimentions and position
 	$(window).on('resize', function(){
@@ -62,9 +73,10 @@ jQuery(document).ready(function($){
 		});
 	}
 
-	function moveBackground(event) {
+	function moveBackground(event, topOffset) {
 		var rotateY = ((-event.pageX+halfWindowW)/halfWindowW)*maxRotationY,
-			rotateX = ((event.pageY-halfWindowH)/halfWindowH)*maxRotationX;
+			yPosition = event.pageY - topOffset,
+			rotateX = ((yPosition-halfWindowH)/halfWindowH)*maxRotationX;
 
 		if( rotateY > maxRotationY) rotateY = maxRotationY;
 		if( rotateY < -maxRotationY ) rotateY = -maxRotationY;
