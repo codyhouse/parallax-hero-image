@@ -29,14 +29,6 @@ jQuery(document).ready(function($){
 			}
 		});
 	});
-	// $('.cd-background-wrapper').on('mousemove', function(event){
-	// 	var wrapperOffsetTop = $(this).offset().top;
-	// 	if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) {
-	// 		window.requestAnimationFrame(function(){
-	// 			moveBackground(event, wrapperOffsetTop);
-	// 		});
-	// 	}
-	// });
 
 	//on resize - adjust .cd-background-wrapper and .cd-floating-background dimentions and position
 	$(window).on('resize', function(){
