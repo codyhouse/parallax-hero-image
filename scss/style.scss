@@ -11,7 +11,7 @@ Primary style
 -------------------------------- */
 
 *, *::after, *::before {
-	@include box-sizing(border-box);
+	box-sizing: border-box;
 }
 
 html {
@@ -42,25 +42,19 @@ Main Components
 	background-color: $color-3;
 	position: relative;
 	overflow: hidden;
-
-	.no-touch & {
-		@include perspective(4000px);
-	}
-
-	&::before {
-		/* never visible - this is used in jQuery to check the device type */
-		content: 'web';
-		display: none;
-	}
-
-	.touch &::before {
-		/* never visible - this is used in jQuery to check the device type */
-		content: 'mobile';
-	}
+	@include perspective(4000px);
 }
 
 .cd-floating-background {
 	position: relative;
+	top: 0;
+	left: 0;
+	@include transform-style(preserve-3d);
+	@include transform(translateZ(0));
+
+	&.is-absolute {
+		position: absolute;
+	}
 
 	img {
 		display: block;
@@ -76,30 +70,19 @@ Main Components
 		left: 0;
 	}
 
-	.no-touch & {
-		top: 0;
-		left: 0;
-		@include transform-style(preserve-3d);
-		@include transform(translateZ(0));
-
-		&.is-absolute {
-			position: absolute;
-		}
-
-		img:first-child {
-			@include transform(translateZ(50px));
-		}
-
-		img:nth-child(2) {
-			@include transform(translateZ(290px));
-		}
-
-		img:nth-child(3) {
-			@include transform(translateZ(400px));
-		}
+	img:first-child {
+		@include transform(translateZ(50px));
 	}
 
-	.no-touch.no-preserve-3d & {
+	img:nth-child(2) {
+		@include transform(translateZ(290px));
+	}
+
+	img:nth-child(3) {
+		@include transform(translateZ(400px));
+	}
+
+	.no-preserve-3d & {
 		/* we target browsers that don't support preserve-3d and show just a standard image - no effect visible */
 		position: relative;
 	}

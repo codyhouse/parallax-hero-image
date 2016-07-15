@@ -1,8 +1,6 @@
 jQuery(document).ready(function($){
-	//check media query
-	var mediaQuery = window.getComputedStyle(document.querySelector('.cd-background-wrapper'), '::before').getPropertyValue('content').replace(/"/g, '').replace(/'/g, ""),
-		//define store some initial variables
-		halfWindowH = $(window).height()*0.5,
+	//define store some initial variables
+	var	halfWindowH = $(window).height()*0.5,
 		halfWindowW = $(window).width()*0.5,
 		//define a max rotation value (X and Y axises)
 		maxRotationY = 5,
@@ -12,7 +10,7 @@ jQuery(document).ready(function($){
 	//detect if hero <img> has been loaded and evaluate its aspect-ratio
 	$('.cd-floating-background').find('img').eq(0).load(function() {
 		aspectRatio = $(this).width()/$(this).height();
-  		if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) initBackground();
+  		if( $('html').hasClass('preserve-3d') ) initBackground();
 	}).each(function() {
 		//check if image was previously load - if yes, trigger load event
   		if(this.complete) $(this).load();
@@ -22,7 +20,7 @@ jQuery(document).ready(function($){
 	$('.cd-background-wrapper').each(function(){
 		$(this).on('mousemove', function(event){
 			var wrapperOffsetTop = $(this).offset().top;
-			if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) {
+			if( $('html').hasClass('preserve-3d') ) {
 				window.requestAnimationFrame(function(){
 					moveBackground(event, wrapperOffsetTop);
 				});
@@ -32,8 +30,7 @@ jQuery(document).ready(function($){
 
 	//on resize - adjust .cd-background-wrapper and .cd-floating-background dimentions and position
 	$(window).on('resize', function(){
-		mediaQuery = window.getComputedStyle(document.querySelector('.cd-background-wrapper'), '::before').getPropertyValue('content').replace(/"/g, '').replace(/'/g, "");
-		if( mediaQuery == 'web' && $('html').hasClass('preserve-3d') ) {
+		if( $('html').hasClass('preserve-3d') ) {
 			window.requestAnimationFrame(function(){
 				halfWindowH = $(window).height()*0.5,
 				halfWindowW = $(window).width()*0.5;
